@@ -17,7 +17,11 @@ fs.readdir(".", (err, data) => {
     if (err) throw err;
     data.forEach((file) => {
         const arr_file = file.split(".");
-        if (arr_file.length > 1 && arr_file[arr_file.length - 1] === inputFormat)
+        if (arr_file.length > 1 && arr_file[arr_file.length - 1] === inputFormat){
+            if(fs.existsSync(`${arr_file[0]}.${outputFormat}`)){
+                fs.unlinkSync(`${arr_file[0]}.${outputFormat}`)
+            }
             convertFfmpeg(arr_file[0]);
+        }
     });
 });
